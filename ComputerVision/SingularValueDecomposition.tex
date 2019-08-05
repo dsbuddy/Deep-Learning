@@ -1,0 +1,106 @@
+	2-norm: maximizes this qunatity
+		SVD of A
+		A = \sum_{i=1}^{r} \sigma_{i} u_{i} v_{i}^{T}
+
+	Sum truncated after k terms
+		Has best rank k approximation to A when error is measured in 2-norm or Frobenius norm
+		A_{k} = \sum_{i=1}^{k} \sigma_{i} u_{i} v_{i}^{T}
+
+
+	Rows of A_{k} are projections of rows of A onto subspace V_{k} spanned by first k singular vectors of A
+		Projection of vector a onto V_{k}
+			\sum_{i=1}^{k} (a\bullet v_{i})v_{i}^{T}
+		Matrix is projection of rows of A onto V_{k}
+			\sum_{i=1}^{k} Av_{i}v_{i}^{T}
+			\sum_{i=1}^{k} \sigma_{i}u_{i}v_{i}^{T}
+			A_{k}
+
+
+Power Method for Computing SVD
+	Takes high powers of the matrix B=AA^{T}
+
+	SVD of A = \sum_{i} \sigma_{i}u_{i}v_{i}^{T}
+
+	B = AA^{T} = \sum_{i} \sigma_{i}\sigma_{j}u_{i}v_{i}^{T}v_{j}u_{j}^{T}
+		= \sum_{i} \sigma_{i}\sigma_{j}u_{i}(v_{i}^{T}\bullet v_{j})u_{j}^{T}
+		= \sum_{i} \sigma_{i}^{2}u_{i}u_{i}^{T}
+
+	B^{k} = \sum_{i}\sigma_{i}^{2k}u_{i}u_{i}^{T}
+	As k increases for i>1 \frac{\sigma_{i}^{2k}}{\sigma_{1}^{2k}} goes to 0
+		B^{k} approaches \sigma_{1}^{2k}u_{1}u_{1}^{T}
+
+	If significant gap between first and second singular values,
+		Power method quickly converges
+			\sigma_{1}^{2k}u_{1}u_{1}^{T}
+		Save time by writing
+			AA^{T}(B^{k-1}x) instead of B^{k}x
+	Else
+
+
+
+Let (x_{1}, x_{2},\dots, x_{d}) be a unit d-dimensional vector picked at random. The
+probability that |x_{1}| \geq \frac{1}{20\sqrt{d}} is at least \frac{9}{10}
+	\alpha = \frac{1}{20\sqrt{d}}
+	Probability that |v_{1}| \leq \alpha is the same as the fraction of volume of unit sphere with |v_{1}| \leq \alpha
+		To get upper bound on volume of sphere with |v_{1}| \leq \alpha
+			Twice the volume of unit radius cylinder of height \alpha
+			Prob(|v_{1}| \leq \alpha) \leq \frac{2\alpha A (d-1)}{V(d)}
+
+			V(d) \geq \frac{2}{\sqrt{d-1}} V(d-1)(1-\frac{1}{d-1})^{\frac{d-2}{2}}
+			(1-x)^{a} \geq 1-ax
+				V(d) \geq \frac{2}{\sqrt{d-1}} A(d-1)(1-\frac{d-2}{2}\frac{1}{d-1})\geq \frac{V(d-1)}{\sqrt{d-1}}
+					Prob(|v_{1}| \leq \alpha) \leq \frac{2\alpha V (d-1)}{\frac{1}{\sqrt{d-1}}V(d-1}} \leq \frac{\sqrt{d-1}}{10\sqrt{d}} \leq \frac{1}{10}
+
+	Since P(|x_{1}| \geq \frac{1}{20\sqrt{d}}) = 1 - P(|x_{1}| \leq \frac{1}{20\sqrt{d}}), P(|x_{1}| \geq \frac{9}{10})
+
+
+
+Applications
+	Principal Component Analysis
+		Collaborative Filtering (122-123)
+	Clustering a Mixture of Spherical Gaussians
+		Used for Gaussian clustering probelm easier by projecting data to subspace
+		Clustering in high dimensions
+			Stochastic models of input data to clustering
+				Mixture models
+					Probability density / distribution - weighted sum of single component probabilities
+		Model fitting probelm to fit a mixture of k basic densities to n samples
+			Cluster sample into k subsets according to component density
+				Separation should be measured by standard deviation
+				Gaussian radius r = square root of average distance squared from center
+					r = \sqrt{d}\sigma
+				p is a d-dimensional spherical Gaussian with center \mu and standard deviation \sigma
+					denisty of p projected onto arbitrary k-dimensional subspace V is a spherical Gaussian with same standard deviation
+				Best fit k-dimensional subspace for k Gaussians is the subspace containing their cetners
+					k singular vectors produced by SVD span the space of k centers
+	Discrete Optimization Problem
+		Maximum Cut Problem
+			Partition the node set V of a digraph into two subsets S and \hat{S}
+			Number of edges from S to \hat{S} is maximized
+				Maximize \sum_{i,j} x_{i}(1-x_{j})a_{ij} subject to x_{i} \in \{0,1\}
+					x^{T}A(1-x) subject to x_{i} \in \{0,1\}
+	Compression Algorithm
+		A is the pixel intensity matrix of a large image
+		Transmission costs O(n^{2})
+		Using SVD would cost O(kn)
+			If k is much smaller than n, this would be more efficient
+				Can be used to reconstruct image if low resolution is sufficient
+	Spectral Decomposition
+		Eigen decomposition for matrix B where B = AA^{T}
+			\sum_{i} \sigma_{i}^{2}u_{i}u_{i}^{T}
+	Ranking documents (HITS)
+		Assign hub weights and authority weights to each node of the web
+		n nodes
+			Hub weights forms a n-dimensional vector u
+			Authority weights form a n-dimensional vector v
+
+			v_{j} = \sum_{i=1}^{d} u_{i}a_{ij}
+			v = A^{T}u
+
+			u = Av
+		Transition Probability Matrix: probability of going from web page i to j is 1 /number of hyperlinks from i
+			Used for ranking pages in decreasing order of p_{j}(\inf)
+			Converges to strongly connected component
+
+
+122 ... 132

@@ -1,0 +1,150 @@
+\section{\alpha Approximation}
+\begin{itemize}
+	\item Performance Guarantee of the Algorithm
+\end{itemize}
+\section{Polynomial-Time Approximation Scheme}
+\begin{itemize}
+	\item Algorithm for each $\epsilon > 0$ s.t. $A_{\epsilon}$ is:
+	\begin{itemize}
+		\item $(1 + \epsilon)$-approximation algorithm for minimization
+		\item $(1 - \epsilon)$-approximation algorithm for maximation
+	\end{itemize}
+\end{itemize}
+\section{Deterministic Rounding Algortihm}
+\begin{itemize}
+	\item Solve linear programming of set cover
+	\item Given solution to LP, include subset $S_{j}$ iff $x_{j}^{*} \geq \frac{1}_{f}$
+\end{itemize}
+\section{Scheduling}
+\subsection{EDD}
+\begin{itemize}
+	\item Assume all due dates are negative implying value is always positive
+	\item Earliest Due Date (EDD) - Process job with next available date \($2 \times$ approximation\)
+\end{itemize}
+\subsection{Makespan: $2 - \frac{1}{m}$}
+\begin{itemize}
+	\item Complete all jobs with different processing times (same priority) in minimal time on identical machines
+	\item Can be viewed as load-balancing: $n$ items given weight $p_{j}$ distributed among $m$ machines, minimizing total weight
+\end{itemize}
+\subsection{List Scheduling: $2$}
+\begin{itemize}
+	\item Assign jobs as soon as there is machine availability
+	\item Or assign jobs by machine that is least heavily loaded
+\end{itemize}
+\subsection{Longest Processing Time: $\frac{4}{3}$}
+\begin{itemize}
+	\item Assign jobs by processing time with longest first
+\end{itemize}
+\section{Dynamic Programming}
+\subsection{Pseudopolynomial}
+\begin{itemize}
+	\item Input size can be represented in unary as opposed to binary
+\end{itemize}
+\subsection{PTAS: Polynomial-Time Approximation Scheme}
+\begin{itemize}
+	\item Family of algorithms where there is an algorithm for each $\epsilon > 0$ s.t. there is a $\(1 + \epsilon \)$ approximation algorithm for minimization problems
+	\item Family of algorithms where there is an algorithm for each $\epsilon > 0$ s.t. there is a $\(1 - \epsilon \)$ approximation algorithm for maximization problems
+\end{itemize}
+\subsetion{FPTAS: Fully Polynomial-Time Approximation Scheme}
+\begin{itemize}
+	\item Approximation scheme s.t. the running time of an algorithm is bounded by a polynomial in \frac{1}{e}
+\end{itemize}
+\section{Linear Programming}
+\subsection{Harmoninc Grouping Scheme}
+\begin{itemize}
+	\item Process pieces in order of decreasing size
+	\item Close current group when size is at least 2
+	\item Start new group with next piece
+	\item ** Each piece in transformed input can be mapped to a distinct piece in original input of no lesser size **
+\end{itemize}
+\section{Randomization}
+\subsection{Derandomization}
+\begin{itemize}
+	\item Use an algorithmic technique (method of conditional expectations) to produce deterministic version of algorithm with same performance
+	\item Randomization is simpler to state and analyze
+	\subsubsection{Method of Conditional Expectations}
+	\begin{itemize}
+		\item If we set $x_{1}$ deterministically, all other variables will be set true with probability $\frac{1}{2}$
+		\item Then setting $x_{1}$ will be maximizing the value of the weight of satisfied clauses
+		\item Continue and repeat determining value for one clause and set others randomly until all are set
+	\end{itemize}
+\end{itemize}
+\subsection{Arithmetic-Geometric Mean Inequality}
+\begin{itemize}
+	\item Compares the arithmetic and geometric means of a set of numbers
+\end{itemize}
+\subsection{Choosing Better of Two Solutions}
+\begin{itemize}
+	\item Randomized Rounding ALgorithm and Unbiased Randomized Algorithm have contrasting bad cases
+	\item One case where RRA fails, URA excels and vice versa
+\end{itemize}
+\subsection{Integrality Gap}
+\begin{itemize}
+	\item Worst-case ratio over all instances of the problem of value of an optimal solution
+\end{itemize}
+\subsection{Randomization Bounds}
+\subsubsection{Chernoff}
+\begin{itemize}
+	\item Bound probability that a sum of random variables is far away from its expected value
+\end{itemize}
+\subsubsection{Markov's Inequality}
+\begin{itemize}
+	\item If a random variable takes is positive, then the probability $P(X >= a) <= \frac{E[X]}{a}$
+\end{itemize}
+
+
+
+	page 141Randomized rounding of semidefinite programs
+	Semidefinite program
+		Can be solved in polynomial time
+		Uses symmetric, positive semidefinite matrices
+	Properites of a Symmetric Matrix
+		X is psd
+		X has non-negative eigenvalues
+		X = V^{T}V for some V \in \doubleR^{m \times n} where m \leq n
+		X = \sum_{i=1}^{n} \lambda_{i}w_{i}w_{i}^{T} for some \lambda_{i} \geq 0 and vectors w_{i}\in \doubleR^{n} such that w_{i}^{T}w_{i}=1 and w_{i}^{T}w_{j}=0 for \neq j
+	Semidefinite Program (SDP)
+		Linear objective function with linear constraints
+		Square symmetric matrix of variables can be constrained to psd
+		Solved within an additive error of \epsilon in polynomial size of input and log(\frac{1}{\epsilon})
+
+
+	Schur Product Theorem
+		For matrices A=(a_{ij}) and B=(b_{ij})
+		A \dot B = (a_{ij}b_{ij})
+		Then if A is psd and B is psd, A \dot B is psd
+
+	Corollary
+		If A is psd and B is psd, \sum_{i,j} a_{ij}b_{ij} \geq 0
+
+	Correlation Clustering
+		SDP can be used to find a good correlation clustering in an undirected graph
+
+
+
+
+Primal-Dual Method
+	Feedback Vertex Set
+		S \subseteq V such that every cyclce C in the graph contains some vertex of S
+			Induced graph G[V-S] is acyclic
+	k-median Problem
+		Minimize sum of distances of vertices of their cluster centers
+		Lagrangean relaxation: reduces k-median problem to uncapacitated facility location problem
+			Eliminate complicating constraints
+			Add penalties for violation to objective function
+
+Cuts and Metrics
+	Metric:
+		* d_{uv} = 0 iff v=u
+		* d_{uv} = d_{vu}, \forall u,v \in V
+		* d_{uv} \leq d_{uw} + d_{wv} \forall u,v,w \in V
+	Semimetric: 
+		Only two and three are observed
+	Balanced cut
+		b \in (0, \frac{1}{2}] if \floor(bn) \leq \abs{S} \leq \ceil{(1-b)n}, n=\abs{v}
+		Use ellipsoid method to solve LP relaxation in polynomial time
+	Hierarchical cut decomposition
+		Rooted tree with log_{2}\Delta+1 levels
+			Nodes correspond to some paritioning of vertex set V
+				Root corresponds to V
+				Leaf nodes correspond to single vertex of V

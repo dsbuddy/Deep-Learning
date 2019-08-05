@@ -1,0 +1,19 @@
+Gets batch data
+Creates one hot of labels
+
+Builds Architecture
+	Convolution Layer 1
+	Primary Capsule Layer
+	Digit Caps Layer
+		Routing
+
+	Masking
+		Calculates magnitude of v_c and then applies softmax
+		Calculates index of max softmax of 10 caps
+
+	Reconstruct MNIST images with 3 Fully Convolutional Layers
+
+Loss function
+	Margin loss
+	Reconstruction loss
+	Total loss (= Margin loss + Regularization scale * Reconstruction loss)

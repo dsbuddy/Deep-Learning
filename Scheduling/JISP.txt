@@ -1,0 +1,46 @@
+Real-time scheduling problem (throughput maximization problem)
+	Single machine environment
+	Multiple machine environment
+	Maximize number of jobs scheduled between their release date and deadline
+
+Scheduling Job
+	To schedule a job, one of the intervals defining it must be selected.
+	To schedule several jobs, the intervals selected for the jobs must not overlap
+	The objective is to schedule as many jobs as possible under these constraints
+
+Job Details
+	Job j
+	Release date r_j
+	Deadline d_j
+	Processing time p_j
+
+To schedule a job j
+	Interval of length p_j must be selected within interval [r_j, d_j]
+	| r_j | \sum U_j
+
+
+Throughput maximization problem
+	Concatenating schedules for machines along real line
+		specifying possible intervals for each job
+
+Approximation algorithm for JISP close to e/(e-1) < 1.582 at most k possible intervals
+
+Resource allocation problem where intervals have heights and can overlap in time as long as total heigh at any time does not exceed 1
+
+Past work
+	Earliest due date is optimal
+	No algorithm improved 2 factor approximation prior to paper for special case | r_j | \sum U_j
+
+Approximation algorithm for JISP
+	Compute division of time line into blocks
+		Find near-optimal solution where:
+			No job crosses block boundaries
+			Only constant number of jobs is scheduled inside block
+
+Greedy - Start at time 0
+	When machine becomes idle
+		Schedule a job that finishes first among all available jobs
+
+Resource allocation
+	Throughput maximization on one machine except each job j has a height h_j
+	Several jobs can be executed simultaneously as long as sum of heights don't exceed 1

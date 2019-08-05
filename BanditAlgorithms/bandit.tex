@@ -1,0 +1,96 @@
+Bandit Problems
+	Decision making with uncertainty is a challenge we all face
+		Bandits provide a sample model of this dilemma
+	Used as Monte-Carlo Tree Search
+	Finds balance between exploration and exploitation
+Bandit Language
+	A bandit problem is a sequential game between a learner and an environment
+	Played over n rounds, where n is positive natural number called horizon
+	Learner chooses an action A_{t} from a set A and the environment reveals a reward X_{t} \in \doubleR
+	Action also called arms, k-armed bandits
+	A_{t} depends on history of H_{t-1} = (A_{1}, X_{1}, \dots, A_{t-1}, X_{t-1})
+	Policy maps histories to actions
+	Environment maps history sequences ending in actions to rewards
+	Environment lies in set \epsilon, environment class
+	Environment is unknown to learner
+
+	Objective of learner is choose actions that lead to largest possible cumulative reward over all n rounds: \sum_{t=1}^{n} X_{t}
+
+Evaluating Performance
+	Regret of learner relative to policy \pi is difference between total expected reward using policy \pi for n rounds and total expected reward collected by learner for n rounds
+		Regret is relative to a set of policies \prod is the maximum regret relative to any policy \pi \in \prod
+		Regret measures performance of learner relative to the best policy in the competitor class, \prod
+	Regret of multi-objective criteria is to convert into a single number by taking averages
+		Corresponds to Bayesian viewpoint (minimizing average cumulative regret with respect to prior on environment class)
+	Maximizing sum of rewards is not always
+
+Example
+	Stochastic Bernoulli Bandit if reward X_{t} \in \{0,1\} and vector \mu \in \[0,1\]^{k} is the probability that X_{t}=1 given learner chooses action A_{t}=a is \mu_{a}
+		Set of all bandits characterized by their mean vectors
+		Knowing the mean vector associated with environment, then optimal policy is to play fixed action a^{*} = argmax_{a\in A} \mu_{a}
+			competitor class is set of k constant policies \prod = \{\pi_{1}, \dots, \pi_{k}\} where \pi_{i} chooses action i in every round
+				Regret over n rounds is R_{n} = n max_{a\in A} \mu_{a} - \doubleE [\sum_{t=1}^{n} X_{t}]
+
+Stochastic Stationary Bandits
+	Environment is restricted to generate the reward in response to each action from a distribution independent of previous action choices and rewards
+
+
+Adversarial Bandits
+	Drop all assumptions on how rewards are generated except they are chosen without knowledge of learner's actions and lie in bounded set
+		Objective is not to find best sequence of actions, but choose best set of constant policies and demand learner is not much worse than these
+		Regret is the stationary assumption transported into the definition of regret rather than constraining the environment
+
+Learning Objectives
+	Since regret is dependent on the environment it becomes a multi-objective criterion
+	Taking averages is one way to convert a multi-objective criteria to a single number
+		Bayesian viewpoint where the objective is to minimize the average cumulative regret with respect to a prior on environment class
+	Maximizing sum is not always the objective
+		Learner wants to find a near-optimal policy after n rounds
+		Actual rewards are unimportant
+
+Limitations of the bandit framework
+	Bandit problem feature is that learner never needs to plan for the future
+	Partial monitoring: Setting where reward is not observed
+
+Applications
+	A/B Testing
+		View two versions of site as actions
+		Each time t a user makes a request, a bandit algorithm is used to choose an action A_{t} \in A = \{SiteA, SiteB\}
+			Reward is X_{t}=1 if user purchases product and X_{t}=0 otherwise
+
+Measure-Theoretic Probability
+	Outcome Space: \Omega, all possible outcomes
+		Outcomes: Elements of the Outcome Space
+	Random Variables = X: \Omega \rightarrow \doubleN
+		Mapping outcome space to the natural numbers
+	Probability of seeing X = v?
+		X^{-1}(v) is the preimage of v under X
+
+
+	\doubleP assigns probabilities to certain subsets of \Omega
+		\doubleP(\Omega) = 1
+		\doubleP(A) \geq 0 for any A \subset \Omega
+		Complement of A, A^{c}=\Omega \\A
+			\doubleP(A^{c}) = 1 - \doubleP(A)
+		If A \cap B = \emptyset
+			\doubleP(A \cup B) = \doubleP(A) + \doubleP(B)
+
+	Probability measure, \doubleP: F \rightarrow \doubleR
+		If \doubleP(\Omega)=1 and \forall A \in F \doubleP(A) \geq 0 ...
+		Then elements of F are called measurable sets
+			Measurable in the sense that \doubleP assigns values to them
+				Pair (\Omega, F) is called a measurable space
+				Triplet (\Omega, F, \doubleP) is called a probability space
+				If condition \doubleP(\Omega)=1 is lifted, then it is called a measure
+
+
+
+
+21				
+
+
+
+
+
+
+Low Rank Matrix - Collaborative Filtering

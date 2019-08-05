@@ -1,0 +1,130 @@
+Word vector model: Frequency of word dimensional vector
+Query is vector
+	Cars but not race cars will be positive for car and negative for race
+
+Squared distance between two vectors: Number of web pages linked to by just one of the two web pages
+
+Best fit line maximizes sum of perpendicular distances squared
+
+Sphere
+	Volume goes to zero as the dimension increases
+		A(d) / d
+	Surface Area
+
+
+For large $d$, squared length of x is tightly concentrated about its mean
+Radius of Gaussian: square root of expected squared distance
+
+
+read 29*** USE 0.pdf ***
+	We can substitute a positive function for Markov
+	Chebyshev	
+
+
+
+
+Assumptions
+	n independent random variables
+	E[X_i] = p_i
+
+\mu = \sum p_i
+
+Choose f(X) = e^{tX}
+
+P(e^{tX} > e^{(1+\del)t\mu}) \le E[\frac{e^{tX}}{e^{(1+\del)t\mu}}]
+
+
+
+
+
+P(X < (1-\gamma)\mu ) < exp (-\mu\gamma^2 / 2)
+
+
+
+
+
+
+
+
+High-Dimensional Cube
+	Is the volume concentrated in an annulus?
+		Show most of the volume of C is within distance O(1) of H
+			Expected squared distance => Var(x_i) = d/4
+			Use Markov (Bernoulli)
+		Sum of independent random variables with E[X_i] = p_i, y_i=x_i-p_i and \mu=\sum_i=1^d(p_i)
+			E[(\sum_i=1^d(y_i))] \le max{(2r\mu)^{r/2}, r^r]
+
+
+
+Random Projection and Johnson-Lindenstrauss Theorem
+	Projecting data to random k-dimension subspace
+	All projected distances in k-dimensional space are within a known scale factor of distances in d-dimensional space
+	Probability of projection being bad is exponentially small in k
+
+	Project fixed unit length in random k-dimensional space
+		Pythagoras theorem: squared length of projection is k/d
+
+	Proof
+		Choose random vector z
+		z = x / |x|
+			x = (x_1, x_2, ..., d)
+
+		Prob[|z|^2 < \beta k/d ] = Prob[|z|^2 < \beta k/d |z|^2]
+			= Prob[\beta k (x_1^2 +x_2^2 + ...) - d(x_1^2 +x_2^2 + ...) > 0]
+
+		Either
+			\beta k (x_1^2 +x_2^2 + ...) > \beta k (\sqrt(d-1) + c)^2
+			d(x_1^2 +x_2^2 + ...) < \beta k (\sqrt(d-1) + c)^2
+
+
+		(x_1^2 + x_2^2) >= (\sqrt(d-1) + c)^2
+
+		Prob(d(x_1^2 + x_2^2)) < d(\sqrt(k-1) + c)^2)
+
+		Prob(d(x_1^2 + x_2^2)) < \beta k(\sqrt(d-1) + c)^2) \le e^{\frac{-k\epsilon^2}{64}}
+
+
+
+
+
+
+\section{Markov Inequality}
+\equation{P[Y>=t]<=\frac{E[Y]}{t}}
+\begin{itemize}
+	\item No knowledge of distrbution of $Y$ required
+\end{itemize}
+
+\section{Chebyshev Bounds}
+\equation{P[\abs{X-E[X]}>=t\sigma]<=\frac{1}{t^{2}}}
+\begin{itemize}
+	\item Requires standard deviation $\sigma$
+	\item Gives exponential fall-off probability with distance from mean
+	\item Requires variable be a sum of independent indicator random variables (Bernoulli, Poisson)
+\end{itemize}
+
+\section{Chernoff Bounds}
+\equation{P[X<(1-\gamma)\mu]<exp(-\mu\frac{\gamma^{2}}{2})}
+\subsection{Proof}
+\begin{itemize}
+	\item Multiply inequality by $t > 0$
+	\item $P[X<(1-\gamma)\mu] = P[exp(-tX) > exp(-t(1-\gamma)\mu)]$
+	\item Apply Markov Inequality to RHS
+	\item $P[X < (1-\gamma)\mu] < \frac{E[exp(-tX)]}{exp(-t(1-\gamma)\mu)}$
+	\item Rewrite the Expected value of $X$ as the product of the expected values
+	\item $P[X < (1-\gamma)\mu] < \frac{\prod{E[exp(-tX_{i})]}}{exp(-t(1-\gamma)\mu)}$
+	\item By substitution,
+	\item $\prod{E[exp(-tX_{i})]} = p_{i}e^{-t} + (1 - p_{i}) = 1 - p_{i}(1 - e^{-t})$
+	\item By substitution, $1 - x < exp(-x)$ and $x = p_{i}(1-e^{-t})$
+	\item $E[exp(-tX_{i})] < exp(p_{i}(e^{-t} - 1))$
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+Distance from point x to H is 1 / \sqrt{d}  \abs{ (\sum_{i=1}^{d}(x_{i}) ) - d / 2}

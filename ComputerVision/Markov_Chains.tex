@@ -1,0 +1,137 @@
+Markov Chains
+	Finite set of states
+		For each pair of x and y states
+			Probability of p_{xy} going from state x to state y
+				Where each x \sum_{x} p_{xy}
+	Random walk in Markov chain consists of sequence of states starting at some state x_{0}
+		State y is selected randomly with probability p_{xy}
+			Starting probability distribution puts a mass of one on start state and 0 on every other
+	Represented as a digraph
+		Strongly connected if there is a directed path from each vertex to every other vertex
+		Matrix P of p_{ij} is the transition probability matrix of the chain
+	Fundamental Theorem of Markov
+		Long-term average probability of being in a particular state is independent of the start state
+		Or initial probability distribution over states provided that the digraph is strongly connected
+
+
+Stationary Distribution
+	After t steps of random walk, probability distribution is p^{(t)}
+	Long-term probability distribution
+		a^{(t)} = \frac{1}{t}(p^{(0)} + p^{(1)} + \dots + p^{(t-1)})
+
+	Fundamental Theorem of Markov chains
+		If markov chain is strongly connected, there is a unique probability vector \pi satisfying \pi P = \pi
+			For any starting distribution, \lim_{t\rightarrow \infty} a^{(t)} exists and equals \pi
+
+			Proof
+				a^{(t)}P - a^{(t)} = \frac{1}{t} [ p^{(0)}P + p^{(1)}P + \dots +p^{(t-1)}P ] - \frac{1}{t} [ p^{(0)} + p^{(1)} + \dots +p^{(t-1)} ]
+				= \frac{1}{t} [ p^{(1)} + p^{(2)} + \dots +p^{(t)} ] - \frac{1}{t} [ p^{(0)} + p^{(1)} + \dots +p^{(t-1)} ]
+				= \frac{1}{t} (p^{(t)} - p^{(0)})
+
+				b^{(t)} = a^{(t)} P - a^{(t)} satisfies |b^{(t)}| \leq \frac{2}{t} \rightarrow 0 as t \rightarrow \infty
+					Matrix A has rank n since each row sum in P is 1
+					Row sums in P - I are all 0
+					If rank A \lt n, there is a vector w perpendicular to 1 and scalar \alpha
+						(P-I)w = \alpha 1 or PW - \alpha 1 = w
+
+					Vector \pi is the stationary probability distribution of Markov chain
+						\pi P = \pi
+							\forall i \sum_{j} \pi_{j}p_{ji} = \pi_{i}
+
+
+
+p 144 - 148
+
+
+Random Walks on Undirected Graphs (Uniform Edge Weights)
+	At each vertex, random walk is equally likely to take any edge
+
+	Hitting time h_{xy} (Discovery time)
+		Expected time of a random walk starting at vertex x to reach vertex y
+		Expected time to reach a vertex y from a start vertex selected at random from some given probability distribution
+
+		Not symmetric: x \rightarrow y is not the same as y \rightarrow x
+
+		Expected time for a random walk starting at one end of a chain of n vertices to reach other end is \theta (n^{2})
+			Recurrence h_{i,j} is the hitting time of reaching j from i
+				h_{i,i+1} = 2 + h_{i-1, i}
+				h_{i,i+1} = 2i - 1
+				= \sum_{i=1}^{n-1} (2i - 1)
+				= (n-1)^{2}
+
+		Expected time for random walk starting at vertex 1 to vertex n in chain of n vertices is 2(i-1)
+
+		If vertices x and y are connected by an edge, then h_{xy} + h_{yx} \leq 2m where m is number of edges in graph
+			Probability of being at u is \frac{d_{u}}{2m}
+			Probability of selecting edge <u,v> is \frac{1}{d_u}
+			Probability of traversing edge <u,v> from u is \frac{1}{2m}
+			Expected time of traversals of edge <x,y> from x is 2m
+			Random walks require less memory so expected time from y to x and back is 2m
+
+	Commute Time
+		Expected time of a random walk starting at x reaching y and returning to x
+			Given a n vertex graph, for any vertices x and y, the commute time is \leq n^{3}
+				commute(x,y) = 2mr_{xy} \leq 2 \choose{n}{2}n \approx n^{3}
+
+	Cover Time
+		Expected time of a random walk starting at vertex x to reach each vertex at least once
+			Expected time for a random walk to cover all vertices of graph G is bounded by 2m(n-1)
+				If <x,y> is an edge in a tree produced by DFS and x and y are adjacent, h_{xy} \leq 2m
+				Since there are (n-1) edges, 2m(n-1) is a upper bound
+
+Random Walks in Euclidean Space
+	Random Walks on Lattices
+		Random walk on a finite -n,\dots,-1,0,1,2,\dots, n of a one dimensional lattice starting from origin
+
+Random Walks on Directed Graphs
+	Take random walk on web and rank pages according to stationary probability
+	If node has not out edges, digraph is not strongly connected and neither is Markov chain
+		When walk encounters this node, walk disappears
+		To resolve, introduce a random restart condition
+			At each step, some probability, r, jumps to a node selected uniformly at random with probability 1-r select an edge at random and followit
+			If node has no out edges, value of r is set to one to convert graph to strongly connected
+
+Finite Markov Processes
+	Markov process: Random process in which the probability distribution for future behavior depends only on the current state (not on how process arrived to current state)
+		Equivalent mathematically to random walks on digraphs
+
+	Nodes of underlying graph of Markov process are referred to as states
+		States is persistent if has property that state should ever be reached
+			To clarify, if you cannot leave strongly connected component A, then nodes in A are persistent states
+
+Page Rank and Hitting Time
+	Page rank of a node in a digraph is stationary probability of the nodes
+		Restart value, r=0.15 (ensures graph is strongly connected)
+	Page rank is fractional frequency with the page will be visited over a long period of time
+		If page rank is p, then the expected time between visits or return time is \frac{1}{p}
+			Create short cycles or reduce return time to increase pagerank of a page
+
+
+Markov Chain Monte Carlo
+	Technique for sampling a probability distribution p(x) where x = (x_{1}, x_{2}, \dots, x_{d}) is set of variables
+		Calculate:
+			Marginal distribution p(x_{1}) = \sum_{x_{2},\dots,x_{d}} p(x_{1}, \dots,x_{d})
+			Expectation of some function f(x), E(f)=\sum_{x_{1},\dots,x_{d}} f(x_{1}, \dots,x_{d})p(x_{1}, \dots,x_{d})
+
+			Difficulty is that these computations require a summation over an exponential number of values
+				Design a Markov chain whose stationary probabilities are exactly p(x_{1}, \dots,x_{d}) and run chain for sufficiently large number of steps averaging f over states seen in the runs
+	Metropolis-Hasting Algorithm
+		General method to design a Markov chain whose stationary distribution is a given target distribution p
+			Start with a connected undirected graph G on set of states
+			Define r to be the maximum degree of any node of G
+			At state i select neighbor j with probability \frac{1}{r}
+			Since the degree of i may be less than, no edge could be selected and walk stays at i
+			If j is selected and p_{j} \geq p_{i}, go to j
+			Else if p_{j} \lt p_{i}, go to j with probability \frac{p_{j}}{p_{i}} and stay at i with probability \frac{p_{j}}{p_{i}}
+				Favors "heavier" states with higher p values
+	Gibbs Sampling
+		Method to sample from a multivariate probability distrbution
+			Random walk on a graph whose vertices correspond to values of x=(x_{1}, \dots,x_{d}) where there is an edge from x to y if x and y differ in only one coordinate
+			To generate samples, one variable of x_{i} is chosen to be updated
+				New value is chosen based on marginal probability of x_{i} with other variables fixed
+				Two common schemes to determine which x_{i} to update:
+					* Choose x_{i} randomly
+					* Choose x_{i} by sequentially scanning from x_{1} to x_{d}
+Convergence to Steady State
+	How fast does the walk start to reflect the stationary probability of the Markov process
+		If convergence time was proportional to number of states the algorithms would not be useful, since number of states can be exponentially large
