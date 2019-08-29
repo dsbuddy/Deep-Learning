@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Dan Schwartz}
+\author{thedanielschwartz }
+\date{August 2019}
+
+\begin{document}
+
+\maketitle
+
+% Part I
+\section{Stochastic Bandits}
+\subsection{Process}
+\begin{itemize}
+	\item Collection of distributions
+	\item Learner and environment interact sequentially over n rounds
+	\item Learner chooses action, environment samples reward and reveals to learner
+\end{itemize}
+\subsection{Learning Objective}
+\begin{itemize}
+	\item Learner maximizes reward
+	\item Cumulative reward is random quantity
+	\item Learner doesn't know distributions
+\end{itemize}
+
+% Part II
+\section{Stochastic Bandits with Finitely Many Arms}
+\begin{itemize}
+	\item Number of actions available is finite
+	\item One action has no means on payoff of other arms
+	\item Sequence of rewards associated with each action is I.I.D.
+\end{itemize}
+\subsection{Explore-then-Commit Algorithm}
+\begin{itemize}
+	\item Explores by playing each arm a fixed number of times then exploits committing tto arm that appeared best during exploration
+\end{itemize}
+\subsection{Upper Confidence Bound Algorithm}
+\begin{itemize}
+	\item Optimimism Principle
+	\begin{itemize}
+		\item One should act as if the environment is as nice as plauisbly possible
+	\end{itemize}
+\end{itemize}
+
+% Part III
+\section{Adversarial Bandits with Finitely Many Arms}
+\begin{itemize}
+	\item Adversarial bandit abandons all assumptions on how rewards are generated
+	\item Adversary can examine algorithm and choose rewards accordingly
+\end{itemize}
+\subsection{Exp3 Algorithm}
+\subsubsection{Exponential-weight algorithm for Exploration and Exploitation}
+\begin{itemize}
+	\item k-armed adversarial bandit
+	\item Exponential weighting
+	\begin{itemize}
+		\item Large learning rate $\rightarrow$ concentrates arm with largest estimated reward and algorithm exploits aggressively
+		\item Small learning rate $\rightarrow$ explores more frequently
+	\end{itemize}
+\end{itemize}
+\subsection{Exp3-IX Algorithm}
+\subsubsection{Exponential-weight algorithm for Exploration and Exploitation Implicit Exploration}
+\begin{itemize}
+	\item Keep regret small and concentrated about its mean
+	\item Since small losses correspond to large rewards, estimator is optimistically biased
+	\item Exp3-IX explores more than standard Exp3
+	\item Consequence of modifying loss estimates than directly altering $P_{t}$
+\end{itemize}
+
+% Part V
+\section{Contextual and Linear Bandits}
+\subsection{Contextual Bandits}
+\subsection{One bandit per context}
+
+
+\end{document}
+
+
+% Page 217
