@@ -1,4 +1,4 @@
-\documentclass{article}
+w\documentclass{article}
 \usepackage[utf8]{inputenc}
 
 \title{Dan Schwartz}
@@ -71,10 +71,50 @@
 % Part V
 \section{Contextual and Linear Bandits}
 \subsection{Contextual Bandits}
-\subsection{One bandit per context}
-
-
+\subsubsection{One bandit per context}
+\begin{itemize}
+	\item Adversary secretly chooses rewards
+	\item Adversary secretly chooses contexts
+	\item Learner observes context
+	\item Learner selects distribution
+	\item Learner observes reward
+\end{itemize}
+\subsubsection{Bandits with expert advice}
+\begin{itemize}
+	\item Use when context set is large and unstructured
+	\item Measure similarity between pairs of contexts
+	\item Adversary secretly chooses rewards
+	\item Experts secretly choose predictions
+	\item Learner observes predictions
+	\item Learner selects distribution
+	\item Action is sampled from distribution and reward
+\end{itemize}
+\subsubsection{Exp4 (Exponential Weighting for Exploration and Exploitation with Experts}
+\begin{itemize}
+	\item Scores experts instead of actions (like in Exp3)
+\end{itemize}
+\subsection{Stochastic Linear Bandits}
+\subsubsection{Stochastic Linear Bandit}
+\begin{itemize}
+	\item Reward is assumed to have linear structure
+	\item Allows learning to transfer from one context to another
+\end{itemize}
+\subsubsection{Stochastic Contextual Bandits}
+\begin{itemize}
+	\item Same as adversarial contextual bandit, but reward function has 1-subgaussian noise
+\end{itemize}
+\subsubsection{Stochastic Linear Bandits with Finitely Many Arms}
+\begin{itemize}
+	\item Choose each action in $a \in A$ $T_{l}(a)$ times
+	\item Calculate empirical estimate
+	\item Eliminate low rewarding arms
+\end{itemize}
+\subsection{Stochastic Linear Bandits with Sparsity}
+\begin{itemize}
+ 	\item Similar to PCA 
+\end{itemize}
+\subsubsection{Sparse Linear Stochastic Bandits}
 \end{document}
 
 
-% Page 217
+% Page 266
